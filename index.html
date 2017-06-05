@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+    <link rel="stylesheet" href="./css/style.css"></link>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <nav>
+    <div class="nav-wrapper teal darken-3">
+      <a href="#" class="brand-logo center">Programa de encriptamiento simétrico</a>
+    </div>
+  </nav>
+</head>
+<body>
+  <div class="input-field col s12 m6 ">
+    <select onchange="selectHandler(this)">
+      <option value="" disabled selected>Choose your option</option>
+      <option value="1">Encriptar</option>
+      <option value="2">Desencriptar</option>
+      
+    </select>
+  
+  </div>
+    
+     
+        <form id="encriptar"class="col s12">
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="input_clave" type="text" data-length="10">
+            <label for="input_text">Clave</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12" >
+            <textarea id="input_textoACifrar" class="materialize-textarea" data-length="20"></textarea>
+            <label for="textarea1">Texto a Cifrar</label>
+          </div>
+
+        </div>
+            <input class="btn waves-effect waves-light" type="button" value="Go!" onclick="encriptar()">
+           
+          </input>
+    <div class="relative">
+      </form>
+        <form id="desencriptar"class="col s12">
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="input_clave2" type="text" data-length="10">
+            <label for="input_text">Clave</label>
+          </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+            <textarea id="input_textoADeCifrar" class="materialize-textarea" data-length="20"></textarea>
+            <label for="textarea2">Texto a decifrar</label>
+          </div>
+        </div>
+             <input class="btn waves-effect waves-light" type="button" value="Go!" onclick="desencriptar()">
+            
+          </input>
+      </form>
+    </div>
+        <div class="input-field col s18" >
+           <i class="material-icons left">lock
+           </i>
+           <h4 id="resultado">Resultado</h4>
+           
+        </div>
+    
+</body>
+<script src="./js/app.js"></script>
+  
+</html>
