@@ -19,9 +19,9 @@
   </nav>
 </head>
 <body>
-  <div class="input-field col s12 m6 ">
+  <div class="input-field col s12 m6">
     <select onchange="selectHandler(this)">
-      <option value="" disabled selected>Choose your option</option>
+      <option value="0" disabled selected>Choose your option</option>
       <option value="1">Encriptar</option>
       <option value="2">Desencriptar</option>
       
@@ -47,9 +47,11 @@
             <input class="btn waves-effect waves-light" type="button" value="Go!" onclick="encriptar()">
            
           </input>
-    <div class="relative">
+          
       </form>
+    
         <form id="desencriptar"class="col s12">
+        <div class="relative">    
         <div class="row">
           <div class="input-field col s6">
             <input id="input_clave2" type="text" data-length="10">
@@ -65,14 +67,15 @@
              <input class="btn waves-effect waves-light" type="button" value="Go!" onclick="desencriptar()">
             
           </input>
+              </div> 
       </form>
-    </div>
+   
         <div class="input-field col s18" >
            <i class="material-icons left">lock
            </i>
-           <h4 id="resultado">Resultado</h4>
            <h4>Resultado</h4>
            <h3 id='resultado'></h3>
+           
            
         </div>
     

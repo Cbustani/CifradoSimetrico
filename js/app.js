@@ -262,6 +262,12 @@ function desencriptar(){
 }
 
 function selectHandler(select){
+    if(select.value =="0"){
+      var earrings = document.getElementById('encriptar');
+    earrings.style.visibility = 'hidden';
+    var earrings2 = document.getElementById('desencriptar');
+    earrings2.style.visibility = 'hidden';   
+    }
 if(select.value == "1"){
 console.log("enc")
     var earrings = document.getElementById('encriptar');

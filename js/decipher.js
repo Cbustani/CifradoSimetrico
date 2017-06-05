@@ -91,22 +91,27 @@ var decrypt = (textoCifrado,clave)=>{
   }
   textArr.reverse()
   //console.log(textArr)
-
+  var arrFinal=[];
   for (var i = 0; i < textArr.length; i++) {
     // console.log("Texxxxxto a cifrar: "+(textArr[i]-31.5)*2)
     // console.log("Clave : "+claveArr[i])
-    // console.log((textArr[i]-31.5)*2^claveArr[i])
+     //console.log((textArr[i]-31.5)*2^claveArr[i]) 
+    var res = ((textArr[i]-31.5)*2)^claveArr[i]
+    if(res!=1){
+        arrFinal.push(res);
+    }
     textArr[i]= ((textArr[i]-31.5)*2)^claveArr[i]
   }
   //textArr.reverse()
-  for (var i = 0; i < textArr.length; i++) {
-    textArr[i] = String.fromCharCode(textArr[i])
+    arrFinal.reverse()
+  for (var i = 0; i < arrFinal.length; i++) {
+    arrFinal[i] = String.fromCharCode(arrFinal[i])
   }
-  //console.log(textArr.join(''))
-  return textArr.join('')
+  //console.log(arrFinal.join(''))
+  return arrFinal.join('')
 
 
 
 
 }
-module.exports.decrypt=decrypt
+//module.exports.decrypt=decrypt
