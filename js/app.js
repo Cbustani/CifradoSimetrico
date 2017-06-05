@@ -2,11 +2,21 @@ $(document).ready(function() {
     $('select').material_select();
          
   });
+
+
 var crypt = (texto,clave)=>{
-  var diff = texto.length - clave.length;
+  var diff = 20 - clave.length;
+  var claveAux = clave;    
   //checar tamaño de bloque
-  if(diff>0){
-    clave += clave.substring(0,diff);
+  var i=0;
+  if(diff!=0){
+      while(clave.length<20){
+          clave+=claveAux.charAt(i);
+           i++;
+          if(i>=claveAux.length){
+              i=0;
+          }
+      }
   }
 
   // console.log(clave);
@@ -36,7 +46,7 @@ var crypt = (texto,clave)=>{
 
   for(var y=0;y<clave.length;y++){
     //xor
-    if(y<textArr.length){
+    if(y<=textArr.length){
       cifrado.push(textArr[y]^claveArr[y]);
       //console.log("Texto a cifrar: "+textArr[y]);
       //console.log("Clave : "+claveArr[y]);
@@ -48,7 +58,10 @@ var crypt = (texto,clave)=>{
     //console.log(claveArr[y]);
     //console.log(cifrado[y]^claveArr[y]);
     //console.log((cifrado[y]%94)+32);
-    textArrFinal.push(Math.round((cifrado[y])/2+31))//%94)+32)
+    textArrFinal.push(((cifrado[y])+32))//%94)+32)
+    console.log('ESTO ME IMPORTA')
+    console.log(cifrado[y])
+    console.log(Math.round((cifrado[y])/2+31))
     // console.log(String.fromCharCode((cifrado[y]%94)+32));
   }
 
@@ -134,63 +147,80 @@ var crypt = (texto,clave)=>{
 })(this);
 
 
-
-// console.log("------------");
-// for(var x=0;x<clave.length;x++){
-//   console.log(String.fromCharCode(ConvertBase.bin2dec(claveArr[x])));
-// }
-
-var textoCifrado = '#$_&\'b'
-//console.log(textoCifrado)
-var clave= "zzzzzz"
-clave=clave+clave+clave
-
-//console.log(textoCifrado)
-var lengthAux = Math.round(textoCifrado.length/2)
-var oddAux=[]
-var evenAux=[]
-var textArr=[]
-var claveArr=[]
-
 var decrypt = (textoCifrado,clave)=>{
+  var diff = 20 - clave.length;
+  var claveAux = clave;    
+  //checar tamaño de bloque
+  var i=0;
+  if(diff!=0){
+      while(clave.length<20){
+          clave+=claveAux.charAt(i);
+           i++;
+          if(i>=claveAux.length){
+              i=0;
+          }
+      }
+  }
+    console.log(textoCifrado)
+    var lengthAux = Math.round(textoCifrado.length/2)
+    var oddAux=[]
+    var evenAux=[]
+    var textArr=[]
+    var claveArr=[]
 
   for (var i = 0; i < clave.length; i++) {
     claveArr[i] = clave.charCodeAt(i)
   }
   for (var i = 0; i < textoCifrado.length; i++) {
-    //console.log("Texto cifrado: "+textoCifrado.charCodeAt(i))
+    console.log("Texto cifrado: "+textoCifrado.charCodeAt(i))
     if(i<lengthAux){
       oddAux.push((textoCifrado.charCodeAt(i)-i))
     }else{
       evenAux.push((textoCifrado.charCodeAt(i)-i))
     }
     //textArr[i] = ConvertBase.dec2bin(textArr[i].charCodeAt(0)-i)
-    //console.log(textArr[i])
+   
   }
+    console.log("impares");
+    console.log(oddAux);
+    console.log("pares");
+    console.log(evenAux);
+    
+    console.log("Tamanio"+textoCifrado.length)
+    console.log("TEXTARR");
+    console.log(textArr)
 
   for (var i = 0; i < textoCifrado.length; i++) {
     if(i%2==0){
-      textArr.push(evenAux.pop())
+      textArr.push(evenAux.shift())
     }else{
-      textArr.push(oddAux.pop())
+      textArr.push(oddAux.shift())
     }
 
   }
-  textArr.reverse()
-  //console.log(textArr)
-
+  //textArr.reverse()
+    console.log("TEXTARRev");
+  console.log(textArr)
+  var arrFinal=[];
   for (var i = 0; i < textArr.length; i++) {
-    // console.log("Texxxxxto a cifrar: "+(textArr[i]-31.5)*2)
-    // console.log("Clave : "+claveArr[i])
-    // console.log((textArr[i]-31.5)*2^claveArr[i])
-    textArr[i]= ((textArr[i]-31.5)*2)^claveArr[i]
+     console.log("Texxxxxto a decifrar sin operacion: "+(textArr[i]))
+     console.log("Texxxxxto a decifrar con operacion: "+Math.round((textArr[i])))
+     console.log("Clave : "+claveArr[i])
+     console.log(textArr[i]^claveArr[i]) 
+     
+    var res = (((textArr[i])-32)^claveArr[i])
+    if(res!=1){
+        arrFinal.push(res);
+    }
+    textArr[i]= ((textArr[i]))^claveArr[i]
   }
   //textArr.reverse()
-  for (var i = 0; i < textArr.length; i++) {
-    textArr[i] = String.fromCharCode(textArr[i])
+  arrFinal.reverse()
+  for (var i = 0; i < arrFinal.length; i++) {
+    arrFinal[i] = String.fromCharCode(arrFinal[i])
   }
-  //console.log(textArr.join(''))
-  return textArr.join('')
+  console.log(arrFinal.join(''))
+  return arrFinal.join('')
 
 
 
@@ -199,14 +229,12 @@ var decrypt = (textoCifrado,clave)=>{
 
 
 
-
 var clave1;
 var clave2;
 var textoACifrar;
 var textoAdecifrar; 
 
-//const cipher = require('./cipher.js')
-//const decipher = require('./decipher.js')
+
 
 function encriptar(){
 //    var earrings = document.getElementById('encriptar');
@@ -217,7 +245,7 @@ function encriptar(){
     
     var enc = crypt(textoACifrar,clave1);
     var res = document.getElementById("resultado").value;
-    
+    document.getElementById('resultado').innerHTML = enc;
     console.log(enc);
    
     
@@ -229,7 +257,7 @@ function desencriptar(){
     clave2 = document.getElementById("input_clave2").value;
     textoAdecifrar = document.getElementById("input_textoADeCifrar").value;
     var dec = decrypt(textoAdecifrar,clave2);
-    
+    document.getElementById('resultado').innerHTML = dec;
     console.log(dec)
 }
 
@@ -248,9 +276,3 @@ console.log("enc")
     earrings2.style.visibility = 'visible'; 
 
 }}
-//var enc = cipher.crypt("}}}}","zzzzzz")
-//var dec = decipher.decrypt("#$_&'b","zzzzzz")
-//
-//console.log(enc)
-//console.log(dec)
-
